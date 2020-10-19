@@ -1,9 +1,15 @@
 package org.uek;
 
+import com.google.gson.Gson;
+import org.uek.graph.Edge;
+import org.uek.graph.GraphData;
+import org.uek.graph.Node;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -123,10 +129,11 @@ public class TravellingSalesmanProblem {
 			}
 			System.out.println(printGoodLoodNames(startVertex));
 
-
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter("path_" + System.currentTimeMillis() + ".txt"));
 				writer.write(fullPath.toString());
+
+				createDisplayJson();
 
 				writer.close();
 			} catch (IOException e) {
@@ -139,5 +146,45 @@ public class TravellingSalesmanProblem {
 
 	private String printGoodLoodNames(int i) {
 		return spoots.get(i);
+	}
+
+	private void createDisplayJson() throws IOException {
+		GraphData graphData = new GraphData();
+		List<Edge> edges = new LinkedList<>();
+		List<Node> nodes = new LinkedList<>();
+
+		for(int i = 0; i < spoots.size(); i++) {
+			nodes.add(new Node(i, spoots.get(i)));
+		}
+
+		for(int i = 1; i < edgeWeightMatrix.length; i++){
+			for(int j = i - 1; j < edgeWeightMatrix[i].length; j++) {
+				if(edgeWeightMatrix[i][j] > 0 ){
+					edges.add(new Edge(i, j, null));
+
+				}
+			}
+		}
+
+		List<Edge> hamiltionianEdges = new LinkedList<>();
+
+		for (int i = 0; i < hamiltonianCycleIndex - 1; i++) {
+			hamiltionianEdges.add(new Edge(hamiltonianCycle[i], hamiltonianCycle[i + 1], "#ff0000"));
+		}
+		hamiltionianEdges.add(new Edge(hamiltonianCycle[hamiltonianCycle.length - 1], startVertex, "#ff0000"));
+
+		edges.removeAll(hamiltionianEdges);
+		edges.addAll(hamiltionianEdges);
+
+		graphData.setEdges(edges);
+		graphData.setNodes(nodes);
+
+		Gson gson = new Gson();
+
+		BufferedWriter writer = new BufferedWriter(new FileWriter("js_data_" + System.currentTimeMillis() + ".json"));
+		writer.write(gson.toJson(graphData));
+		writer.close();
+
+
 	}
 }
