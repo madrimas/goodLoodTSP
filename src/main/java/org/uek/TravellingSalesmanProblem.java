@@ -167,7 +167,6 @@ public class TravellingSalesmanProblem {
 		}
 
 		List<Edge> hamiltionianEdges = new LinkedList<>();
-
 		for (int i = 0; i < hamiltonianCycleIndex - 1; i++) {
 			hamiltionianEdges.add(new Edge(hamiltonianCycle[i], hamiltonianCycle[i + 1], "#ff0000"));
 		}
