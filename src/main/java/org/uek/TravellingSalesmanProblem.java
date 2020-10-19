@@ -26,7 +26,7 @@ public class TravellingSalesmanProblem {
 	List<Integer> fullPath;
 	List<String> spoots;
 
-	public void start(List<String> spoots, List<List<Double>> distances) {
+	public GraphData start(List<String> spoots, List<List<Double>> distances) {
 		verticesAmount = spoots.size();
 		this.spoots = spoots;
 
@@ -36,7 +36,7 @@ public class TravellingSalesmanProblem {
 
 		TSP(startVertex, fullPath);
 
-		showResult();
+		return showResult();
 	}
 
 	private void initializeStructures() {
@@ -110,7 +110,7 @@ public class TravellingSalesmanProblem {
 		return neighbor && !vertexVisited[neighborIndex];
 	}
 
-	private void showResult() {
+	private GraphData showResult() {
 		if (hamiltonianCycleIndex > 0) {
 			for (int i = 0; i < hamiltonianCycleIndex; i++) {
 				System.out.print(hamiltonianCycle[i] + "-" + hamiltonianCycle[(i + 1) % verticesAmount] + " ");
@@ -132,23 +132,24 @@ public class TravellingSalesmanProblem {
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter("path_" + System.currentTimeMillis() + ".txt"));
 				writer.write(fullPath.toString());
-
-				createDisplayJson();
-
 				writer.close();
+
+				return createDisplayJson();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
 			System.out.println("There is no Hamiltonian cycle");
 		}
+		return null;
 	}
 
 	private String printGoodLoodNames(int i) {
 		return spoots.get(i);
 	}
 
-	private void createDisplayJson() throws IOException {
+	private GraphData createDisplayJson() throws IOException {
 		GraphData graphData = new GraphData();
 		List<Edge> edges = new LinkedList<>();
 		List<Node> nodes = new LinkedList<>();
@@ -184,6 +185,6 @@ public class TravellingSalesmanProblem {
 		writer.write(gson.toJson(graphData));
 		writer.close();
 
-
+		return graphData;
 	}
 }
