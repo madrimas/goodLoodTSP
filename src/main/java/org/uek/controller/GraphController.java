@@ -1,5 +1,6 @@
 package org.uek.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.uek.DataReader;
@@ -12,6 +13,7 @@ import java.util.List;
 public class GraphController {
 
     @GetMapping("/graph")
+    @CrossOrigin(origins = "http://localhost:3000")
     public GraphData getGraphData() {
         TravellingSalesmanProblem travellingSalesmanProblem = new TravellingSalesmanProblem();
         List<List<Double>> distances = DataReader.readDistances();
