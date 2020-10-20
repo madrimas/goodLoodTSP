@@ -2,13 +2,9 @@ package org.uek;
 
 import com.google.gson.Gson;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,8 +24,6 @@ public class DataReader {
                     .collect(Collectors.joining("\n"));
 
             List<List<Double>> object = gson.fromJson(text, List.class);
-
-            System.out.println(object);
 
             return object;
         } catch (FileNotFoundException e) {
@@ -51,8 +45,6 @@ public class DataReader {
                     .collect(Collectors.joining("\n"));
 
             List<String> spoots = gson.fromJson(fileAsString, List.class);
-
-            System.out.println(spoots);
 
             return spoots;
         } catch (FileNotFoundException e) {
