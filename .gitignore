@@ -1,3 +1,6 @@
 /target/
 /.idea/
 /goodLoodTSP.iml
+
+# Project exclude paths
+/out/
