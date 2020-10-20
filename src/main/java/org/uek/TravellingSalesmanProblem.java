@@ -17,7 +17,8 @@ import java.util.List;
  */
 public class TravellingSalesmanProblem {
 
-	int verticesAmount, startVertex, minimalEdgesSum, minimalEdgesSumTemp, hamiltonianCycleIndex, hamiltonianCycleTempIndex;
+	int verticesAmount, startVertex, hamiltonianCycleIndex, hamiltonianCycleTempIndex;
+	double minimalEdgesSum, minimalEdgesSumTemp;
 	boolean[][] adjacencyMatrix;
 	double[][] edgeWeightMatrix;
 	int[] hamiltonianCycle;
@@ -122,7 +123,7 @@ public class TravellingSalesmanProblem {
 				System.out.print(hamiltonianCycle[i] + " ");
 			}
 			System.out.println(startVertex);
-			System.out.println("cycle weight = " + minimalEdgesSum);
+			System.out.println("cycle weight = " + Math.round( minimalEdgesSum * 100.0 ) / 100.0);
 
 			for (int i = 0; i < hamiltonianCycleIndex; i++) {
 				System.out.print(printGoodLoodNames(hamiltonianCycle[i]) + " -> ");
