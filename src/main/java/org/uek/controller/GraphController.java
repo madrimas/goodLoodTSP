@@ -13,7 +13,7 @@ import java.util.List;
 public class GraphController {
 
     @GetMapping("/graph")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     public GraphData getGraphData() {
         TravellingSalesmanProblem travellingSalesmanProblem = new TravellingSalesmanProblem();
         List<List<Double>> distances = DataReader.readDistances();
